@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarAdmin</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="form">
+        <input id="nome" placeholder="Nome do cliente" type="text" onblur="validaNome(this.id)" />
+        <input id="email" placeholder="Email do cliente" type="email" onblur="validaEmail(this.id)" />
+        <input id="contato" placeholder="Contato do cliente" type="text" onblur="validaContato(this.id)" />
+        <button onclick="cadastrar()">Cadastrar</button>
+        <p>Ir para <a href="https://localhost:7255/listar/cliente">Lista de Locações</a></p>
+        <link rel="stylesheet" href="./script.js">
+    </div>
+</body>
+</html>
