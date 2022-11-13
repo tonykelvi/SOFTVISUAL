@@ -1,7 +1,4 @@
-
-// Usar a url que vai ser gerada após o dotnet run
-
-var url = 'https://localhost:7255/'
+var url = 'http://localhost:3000/'
 
 function cadastrar()
 {
@@ -28,10 +25,9 @@ function cadastrar()
 	
 	let body =
 	{
-		'nome':        document.getElementById('nome').value,
+		'nome':        document.getElementById('nome-completo').value,
 		'contato':       document.getElementById('contato').value,
 		'email':       document.getElementById('email').value,
-		
 
 	};
 	

@@ -57,8 +57,12 @@ namespace Trabalho
 			
 			var connectionString = builder.Configuration.GetConnectionString("BaseRentCar") ?? "Data Source=BaseRentCar.db";
 			builder.Services.AddSqlite<BaseRentCar>(connectionString);
+
+			builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 			
 			var app = builder.Build();
+
+			app.UseCors();
 			
             //CADASTRAR
 			app.MapPost("/cadastrar/cliente", (BaseRentCar BaseRentCar, Cliente cliente) =>
@@ -155,7 +159,7 @@ namespace Trabalho
 				BaseRentCar.SaveChanges();
 				return "Vendedor excluido com sucesso";
 			});						
-			app.Run();
+			app.Run("http://localhost:3000");
 		}
 	}
 }

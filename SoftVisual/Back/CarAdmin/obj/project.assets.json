@@ -1435,11 +1435,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tonya\\OneDrive\\Documentos\\tudo\\Projetosoftwarevisual\\Projetosoftwarevisual\\CarAdmin\\CarAdmin.csproj",
+      "projectUniqueName": "C:\\Users\\tonya\\OneDrive\\Documentos\\SoftVisual\\SoftVisual\\Back\\CarAdmin\\CarAdmin.csproj",
       "projectName": "CarAdmin",
-      "projectPath": "C:\\Users\\tonya\\OneDrive\\Documentos\\tudo\\Projetosoftwarevisual\\Projetosoftwarevisual\\CarAdmin\\CarAdmin.csproj",
+      "projectPath": "C:\\Users\\tonya\\OneDrive\\Documentos\\SoftVisual\\SoftVisual\\Back\\CarAdmin\\CarAdmin.csproj",
       "packagesPath": "C:\\Users\\tonya\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tonya\\OneDrive\\Documentos\\tudo\\Projetosoftwarevisual\\Projetosoftwarevisual\\CarAdmin\\obj\\",
+      "outputPath": "C:\\Users\\tonya\\OneDrive\\Documentos\\SoftVisual\\SoftVisual\\Back\\CarAdmin\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\tonya\\AppData\\Roaming\\NuGet\\NuGet.Config"

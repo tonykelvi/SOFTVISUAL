@@ -7,16 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CarAdmin</title>
     <link rel="stylesheet" href="./style.css">
+    <script src="./script.js"></script>
 </head>
 
 <body>
     <div class="form">
-        <input id="nome" placeholder="Nome do cliente" type="text" onblur="validaNome(this.id)" />
-        <input id="email" placeholder="Email do cliente" type="email" onblur="validaEmail(this.id)" />
-        <input id="contato" placeholder="Contato do cliente" type="text" onblur="validaContato(this.id)" />
+        <input id="nome-completo"   placeholder="Nome Completo"      type="text"     onblur="validaNome(this.id)"/>
+        <input id="email"           placeholder="Email"              type="email"/>
+        <input id="telefone"        placeholder="Telefone"           type="tel"/>
         <button onclick="cadastrar()">Cadastrar</button>
         <p>Ir para <a href="https://localhost:7255/listar/cliente">Lista de Locações</a></p>
-        <link rel="stylesheet" href="./script.js">
     </div>
 </body>
 </html>
