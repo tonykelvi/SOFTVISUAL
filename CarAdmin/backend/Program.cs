@@ -38,12 +38,20 @@ namespace Trabalho
 			return BitConverter.ToString(SHA256.Create().ComputeHash(System.Text.Encoding.UTF8.GetBytes(password))).Replace("-", String.Empty);
 		}
     }
+	class Carro
+    {
+		public int Id { get; set; }
+        public string? modelo { get; set; }
+		public string? placa { get; set; }
+    }
+
 	
 	class Database : DbContext
 	{
 		public Database(DbContextOptions options) : base(options) {}
 		public DbSet<Usuario> Usuarios {get; set;} = null!;
 		//adicione dbsets para as demais entidades aqui
+		public DbSet<Carro> Carros { get; set; } = null!;
 	}
 	
 	class Program
@@ -136,10 +144,59 @@ namespace Trabalho
 				database.SaveChanges();
 				return Results.Ok();
 			});
-			
-			///////////////////////
-			//EXECUCAO DA APLICACAO
-			///////////////////////
+
+			/////////////////////////
+			// CADASTRO DE CARROS //
+			////////////////////////
+
+			//LISTAR CARROS
+			app.MapGet("/carros", (Database database) => {
+				return database.Carros.ToList();
+
+			});
+			app.MapPost("/carros", (Database database, Carro carro) =>
+			{
+				database.Carros.Add(carro);
+				database.SaveChanges();
+				return Results.Ok();
+			});
+
+			//LER CARROS
+			app.MapGet("/carros/{id}", (Database database, int id) =>
+			{
+				return database.Carros.Find(id);
+			});
+
+			//ATUALIZAR CARROS
+			app.MapPost("/carros{id}", (Database database, Carro carroAtualizado, int id) =>
+			{
+				var carro = database.Carros.Find(id);
+				if(carro == null)
+				{
+					return Results.NotFound();
+				}				
+				if(null != carroAtualizado.modelo)        carro.modelo        = carroAtualizado.modelo;
+				if(null != carroAtualizado.placa)      carro.placa      = carroAtualizado.placa;
+				database.SaveChanges();
+				return Results.Ok();
+			});
+
+			//REMOVER CARROS
+			app.MapPost("/carros{id}", (Database database, int id) =>
+			{
+				var carro = database.Carros.Find(id);
+				if(carro == null)
+				{
+					return Results.NotFound();
+				}
+				database.Remove(carro);
+				database.SaveChanges();
+				return Results.Ok();
+			});
+
+			////////////////////////////
+			// EXECUCAO DA APLICACAO //
+			//////////////////////////
 			
 			//roda aplicacao na porta 3000 (arbitraria)
 			app.Run("http://localhost:3000");

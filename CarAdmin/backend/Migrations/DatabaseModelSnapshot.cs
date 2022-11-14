@@ -17,6 +17,23 @@ namespace CarAdmin.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.0");
 
+            modelBuilder.Entity("Trabalho.Carro", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("modelo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("placa")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Carros");
+                });
+
             modelBuilder.Entity("Trabalho.Usuario", b =>
                 {
                     b.Property<int>("Id")

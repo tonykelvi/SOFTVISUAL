@@ -11,13 +11,30 @@ using Trabalho;
 namespace CarAdmin.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20221113203257_InitialCreate")]
+    [Migration("20221114224406_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.0");
+
+            modelBuilder.Entity("Trabalho.Carro", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("modelo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("placa")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Carros");
+                });
 
             modelBuilder.Entity("Trabalho.Usuario", b =>
                 {
