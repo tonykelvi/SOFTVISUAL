@@ -379,4 +379,186 @@ function remover(id)
 		console.log(error)
 		alert('Não foi possível remover o usuário :/')
 	})
+
+
+	//CADASTRO CARRO
+
+function cadastrarCarro()
+{	
+	//construcao do json que vai no body da criacao de usuario	
+	
+	let body =
+	{
+		'Modelo':        document.getElementById('modelo').value,
+		'Placa':      document.getElementById('placa').value,
+	};
+	
+	//envio da requisicao usando a FETCH API
+	
+	//configuracao e realizacao do POST no endpoint "usuarios"
+	fetch(url + "carros",
+	{
+		'method': 'POST',
+		'redirect': 'follow',
+		'headers':
+		{
+			'Content-Type': 'application/json',
+			'Accept': 'application/json'
+		},
+		'body': JSON.stringify(body)
+	})
+	//checa se requisicao deu certo
+	.then((response) =>
+	{
+		if(response.ok)
+		{
+			return response.text()
+		}
+		else
+		{
+			return response.text().then((text) =>
+			{
+				throw new Error(text)
+			})
+		}
+	})
+	//trata resposta
+	.then((output) =>
+	{
+		console.log(output)
+		alert('Cadastro efetuado! :D')
+	})
+	//trata erro
+	.catch((error) =>
+	{
+		console.log(error)
+		alert('Não foi possível efetuar o cadastro! :(')
+	})
+}
+function listarCarro()
+{
+	fetch(url + 'carros')
+	.then(response => response.json())
+	.then((usuarios) =>
+	{
+		let listaCarros = document.getElementById('lista-carros')
+		
+		while(listaCarros.firstChild)
+		{
+			listaCarros.removeChild(listaCarros.firstChild)
+		}
+		
+		for(let carro of carros)
+		{
+			let divCarro = document.createElement('div')
+			divCarro.setAttribute('class', 'form')
+			
+			let divModelo = document.createElement('input')
+			divModelo.placeholder = 'Modelo'
+			divModelo.value = carro.modelo
+			divCarro.appendChild(divModelo)
+			
+			let divPlaca = document.createElement('input')
+			divPlaca.placeholder = 'Placa'
+			divPlaca.value = carro.placa
+			divCarro.appendChild(divPlaca)
+			
+			let btnRemover = document.createElement('button')
+			btnRemover.innerHTML = 'Remover'
+			btnRemover.onclick = u => remover(carro.id)
+			btnRemover.style.marginRight = '5px'
+			
+			let btnAtualizar = document.createElement('button')
+			btnAtualizar.innerHTML = 'Atualizar'
+			btnAtualizar.onclick = u => atualizar(carro.id, divModelo, divPlaca)
+			btnAtualizar.style.marginLeft = '5px'
+			
+			let divBotoes = document.createElement('div')
+			divBotoes.style.display = 'flex'
+			divBotoes.appendChild(btnRemover)
+			divBotoes.appendChild(btnAtualizar)
+			divUsuario.appendChild(divBotoes)
+			
+			listaCarros.appendChild(divCarro)
+		}
+	})
+}
+function atualizarCarro(id, divModelo, divPlaca)
+{
+	let body =
+	{
+		'Modelo': divModelo.value,
+		'Placa': divPlaca.value
+	}
+	
+	fetch(url + "carros/" + id,
+	{
+		'method': 'PUT',
+		'redirect': 'follow',
+		'headers':
+		{
+			'Content-Type': 'application/json',
+			'Accept': 'application/json'
+		},
+		'body': JSON.stringify(body)
+	})
+	.then((response) =>
+	{
+		if(response.ok)
+		{
+			return response.text()
+		}
+		else
+		{
+			return response.text().then((text) =>
+			{
+				throw new Error(text)
+			})
+		}
+	})
+	.then((output) =>
+	{
+		listarCarro()
+		console.log(output)
+		alert('Carro atualizado! \\o/')
+	})
+	.catch((error) =>
+	{
+		console.log(error)
+		alert('Não foi possível atualizar o Carro :/')
+	})
+}
+function removerCarro(id)
+{
+	fetch(url + 'carros/' + id,
+	{
+		'method': 'DELETE',
+		'redirect': 'follow'
+	})
+	.then((response) =>
+	{
+		if(response.ok)
+		{
+			return response.text()
+		}
+		else
+		{
+			return response.text().then((text) =>
+			{
+				throw new Error(text)
+			})
+		}
+	})
+	.then((output) =>
+	{
+		listarCarro()
+		console.log(output)
+		alert('Carro removido! >=]')
+	})
+	.catch((error) =>
+	{
+		console.log(error)
+		alert('Não foi possível remover o Carro :/')
+	})
+}
 }
