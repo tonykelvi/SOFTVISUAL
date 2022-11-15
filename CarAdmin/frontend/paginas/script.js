@@ -476,7 +476,7 @@ function listarCarro()
 			divBotoes.style.display = 'flex'
 			divBotoes.appendChild(btnRemover)
 			divBotoes.appendChild(btnAtualizar)
-			divUsuario.appendChild(divBotoes)
+			divCarro.appendChild(divBotoes)
 			
 			listaCarros.appendChild(divCarro)
 		}
@@ -575,7 +575,7 @@ function cadastrarFuncionario(){
 		'NomeFuncionario':        document.getElementById('nomeFuncionario').value,
 	};
 	
-	fetch(url + "funcionarios",
+	fetch(url + "vendedores",
 	{
 		'method': 'POST',
 		'redirect': 'follow',
@@ -631,7 +631,7 @@ function validaNomeFunc(id)
 }
 
 function listarFuncionario(){
-	fetch(url + 'funcionarios')
+	fetch(url + 'vendedores')
 	.then(response => response.json())
 	.then((funcionarios) =>
 	{
@@ -673,15 +673,14 @@ function listarFuncionario(){
 	})
 }
 
-function atualizarFuncionario(id, divModelo, divPlaca)
+function atualizarFuncionario(id, divNomeFunc)
 {
 	let body =
 	{
-		'Modelo': divModelo.value,
-		'Placa': divPlaca.value
+		'NomeFuncionario': divNomeFunc.value,
 	}
 	
-	fetch(url + "funcionarios/" + id,
+	fetch(url + "vendedores/" + id,
 	{
 		'method': 'PUT',
 		'redirect': 'follow',
@@ -720,7 +719,7 @@ function atualizarFuncionario(id, divModelo, divPlaca)
 }
 
 function removerFuncionario(id){
-	fetch(url + 'funcionarios/' + id,
+	fetch(url + 'vendedores/' + id,
 	{
 		'method': 'DELETE',
 		'redirect': 'follow'

@@ -204,6 +204,30 @@ namespace Trabalho
 				database.SaveChanges();
 				return Results.Ok();
 			});
+			app.MapPost("/vendedores{id}", (Database database, Vendedor vendedorAtualizado, int id) =>
+			{
+				var vendedor = database.Vendedores.Find(id);
+				if(vendedor == null)
+				{
+					return Results.NotFound();
+				}				
+				if(null != vendedorAtualizado.nomeFuncionario)        vendedor.nomeFuncionario        = vendedorAtualizado.nomeFuncionario;
+				database.SaveChanges();
+				return Results.Ok();
+			});
+
+			app.MapPost("/vendedores{id}", (Database database, int id) =>
+			{
+				var vendedor = database.Vendedores.Find(id);
+				if(vendedor == null)
+				{
+					return Results.NotFound();
+				}
+				database.Remove(vendedor);
+				database.SaveChanges();
+				return Results.Ok();
+			});
+
 			
 			app.Run("http://localhost:3000");
 		}
