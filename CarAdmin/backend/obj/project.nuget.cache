@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4rbi2wE/B3OnyhmBg34tf2IN/mdwQ8hKJ9ONomJjuHCEV179uSa1nVMSN7XTJOj5+vD++q4fGudMUglxg1dUUQ==",
+  "dgSpecHash": "UWnTUzAGpVyyL0pG/RiVNPc3Eg8HysUEs82CrZDFrtAj0JEgCe4CW4DGpv56O1dkyiNKQ1CWW8DaYktU4TZY7g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tonya\\OneDrive\\Área de Trabalho\\SOFTVISUAL\\SOFTVISUAL\\CarAdmin\\backend\\CarAdmin.csproj",
+  "projectFilePath": "C:\\Users\\tonya\\OneDrive\\Documentos\\workspace\\SOFTVISUAL\\CarAdmin\\backend\\CarAdmin.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tonya\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\tonya\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.0\\microsoft.data.sqlite.core.6.0.0.nupkg.sha512",

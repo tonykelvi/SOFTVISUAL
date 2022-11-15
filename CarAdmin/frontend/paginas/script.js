@@ -476,7 +476,7 @@ function listarCarro()
 			divBotoes.style.display = 'flex'
 			divBotoes.appendChild(btnRemover)
 			divBotoes.appendChild(btnAtualizar)
-			divCarro.appendChild(divBotoes)
+			divUsuario.appendChild(divBotoes)
 			
 			listaCarros.appendChild(divCarro)
 		}
@@ -564,26 +564,17 @@ function removerCarro(id)
 
 //CADASTRO "ESCRAVO/FUNCIONÁRIO"
 
-function cadastrarEscravo(){	
+function cadastrarFuncionario(){	
 
-	if(!validaNomeFunc('nomeFunc')){
+	if(!validaNomeFunc('nomeFuncionario')){
 		return
-	}
-	if(!validaSenhaFunc('senhaFunc')){
-		return
-	}
-	//construcao do json que vai no body da criacao de funcionario	
+	}	
 	
 	let body =
 	{
-		'NomeFunc':        document.getElementById('nomeFunc').value,
-		'SenhaFunc':      document.getElementById('senhaFunc').value,
-		'ConfSenhaFunc':      document.getElementById('confSenhaFunc').value,
+		'NomeFuncionario':        document.getElementById('nomeFuncionario').value,
 	};
 	
-	//envio da requisicao usando a FETCH API
-	
-	//configuracao e realizacao do POST no endpoint "funcionarios"
 	fetch(url + "funcionarios",
 	{
 		'method': 'POST',
@@ -595,7 +586,6 @@ function cadastrarEscravo(){
 		},
 		'body': JSON.stringify(body)
 	})
-	//checa se requisicao deu certo
 	.then((response) =>
 	{
 		if(response.ok)
@@ -610,13 +600,11 @@ function cadastrarEscravo(){
 			})
 		}
 	})
-	//trata resposta
 	.then((output) =>
 	{
 		console.log(output)
 		alert('Cadastro efetuado! :D')
 	})
-	//trata erro
 	.catch((error) =>
 	{
 		console.log(error)
@@ -642,102 +630,44 @@ function validaNomeFunc(id)
 	}
 }
 
-function validaSenhaFunc(id)
-{
-	let divSenhaFunc = document.getElementById(id)
-	
-	let senha = divSenhaFunc.value
-	
-	let temTamanho   = senha.length >= 8
-	let temMaiuscula = (/[A-Z]/).test(senha)
-	let temMinuscula = (/[a-z]/).test(senha)
-	let temNumero    = (/[0-9]/).test(senha)
-	let temEspecial  = (/[!@#$%&*?{}<>_]/).test(senha)
-	
-	if(temTamanho && temMaiuscula && temMinuscula && temNumero && temEspecial)
-	{
-		divSenhaFunc.classList.remove('erro-input')
-		confirmaSenhaFunc('confirma-senha')
-		return true
-	}
-	else
-	{
-		if(!divSenhaFunc.classList.contains('erro-input'))
-		{
-			divSenhaFunc.classList.add('erro-input')
-		}
-		confirmaSenhaFunc('confirma-senha')
-		return false
-	}
-}
-
-function confirmaSenhaFunc(id)
-{
-	let divConfirmaFunc = document.getElementById(id)
-	let divSenhaFunc = document.getElementById('senha')
-	
-	if(divConfirmaFunc.value == divSenhaFunc.value)
-	{
-		divConfirmaFunc.classList.remove('erro-input')
-		return true
-	}
-	else
-	{
-		if(!divConfirmaFunc.classList.contains('erro-input'))
-		{
-			divConfirmaFunc.classList.add('erro-input')
-		}
-		return false
-	}
-}
-
-function listarEscravo(){
+function listarFuncionario(){
 	fetch(url + 'funcionarios')
 	.then(response => response.json())
 	.then((funcionarios) =>
 	{
-		//pega div que vai conter a lista de funcionarios
-		let listaFuncionarios = document.getElementById('lista-escravo')
+		let listaFuncionarios = document.getElementById('lista-funcionario')
 		
-		//limpa div
 		while(listaFuncionarios.firstChild)
 		{
 			listaFuncionarios.removeChild(listaFuncionarios.firstChild)
 		}
 		
-		//preenche div com funcionarios recebidos do GET
 		for(let funcionario of funcionarios)
 		{
-			//cria div para as informacoes de um funcionario
 			let divFuncionario = document.createElement('div')
 			divFuncionario.setAttribute('class', 'form')
 			
-			//pega o nome do funcionario
 			let divNomeFunc = document.createElement('input')
 			divNomeFunc.placeholder = 'Nome Completo'
-			divNomeFunc.value = funcionario.nomeFunc
+			divNomeFunc.value = funcionario.nomeFuncionario
 			divFuncionario.appendChild(divNomeFunc)
 			
-			//cria o botao para remover o funcionario
 			let btnRemover = document.createElement('button')
 			btnRemover.innerHTML = 'Remover'
 			btnRemover.onclick = u => removerFuncionario(funcionario.id)
 			btnRemover.style.marginRight = '5px'
 			
-			//cria o botao para atualizar o funcionario
 			let btnAtualizar = document.createElement('button')
 			btnAtualizar.innerHTML = 'Atualizar'
 			btnAtualizar.onclick = u => atualizarFuncionario(funcionario.id, divNomeFunc)
 			btnAtualizar.style.marginLeft = '5px'
 			
-			//cria a div com os dois botoes
 			let divBotoes = document.createElement('div')
 			divBotoes.style.display = 'flex'
 			divBotoes.appendChild(btnRemover)
 			divBotoes.appendChild(btnAtualizar)
 			divFuncionario.appendChild(divBotoes)
 			
-			//insere a div do usuario na div com a lista de funcionario
 			listaFuncionarios.appendChild(divFuncionario)
 		}
 	})
@@ -778,7 +708,7 @@ function atualizarFuncionario(id, divModelo, divPlaca)
 	})
 	.then((output) =>
 	{
-		listarCarro()
+		listarFuncionario()
 		console.log(output)
 		alert('Funcionário atualizado! \\o/')
 	})
@@ -811,7 +741,7 @@ function removerFuncionario(id){
 	})
 	.then((output) =>
 	{
-		listarCarro()
+		listarFuncionario()
 		console.log(output)
 		alert('Funcionario removido! >=]')
 	})
