@@ -11,7 +11,7 @@ using Trabalho;
 namespace CarAdmin.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20221114224406_InitialCreate")]
+    [Migration("20221115161508_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,6 +72,20 @@ namespace CarAdmin.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("Trabalho.Vendedor", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("nomeFuncionario")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Vendedores");
                 });
 #pragma warning restore 612, 618
         }

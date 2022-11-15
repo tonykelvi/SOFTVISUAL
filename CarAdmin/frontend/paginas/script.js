@@ -347,8 +347,7 @@ function atualizar(id, divNome, divEmail, divCpf)
 	})
 }
 
-function remover(id)
-{
+function remover(id){
 	fetch(url + 'usuarios/' + id,
 	{
 		'method': 'DELETE',
@@ -379,13 +378,13 @@ function remover(id)
 		console.log(error)
 		alert('Não foi possível remover o usuário :/')
 	})
-
+}
 
 	//CADASTRO CARRO
 
 function cadastrarCarro()
 {	
-	//construcao do json que vai no body da criacao de usuario	
+	//construcao do json que vai no body da criacao de carro	
 	
 	let body =
 	{
@@ -395,7 +394,7 @@ function cadastrarCarro()
 	
 	//envio da requisicao usando a FETCH API
 	
-	//configuracao e realizacao do POST no endpoint "usuarios"
+	//configuracao e realizacao do POST no endpoint "carros"
 	fetch(url + "carros",
 	{
 		'method': 'POST',
@@ -439,7 +438,7 @@ function listarCarro()
 {
 	fetch(url + 'carros')
 	.then(response => response.json())
-	.then((usuarios) =>
+	.then((carros) =>
 	{
 		let listaCarros = document.getElementById('lista-carros')
 		
@@ -465,19 +464,19 @@ function listarCarro()
 			
 			let btnRemover = document.createElement('button')
 			btnRemover.innerHTML = 'Remover'
-			btnRemover.onclick = u => remover(carro.id)
+			btnRemover.onclick = u => removerCarro(carro.id)
 			btnRemover.style.marginRight = '5px'
 			
 			let btnAtualizar = document.createElement('button')
 			btnAtualizar.innerHTML = 'Atualizar'
-			btnAtualizar.onclick = u => atualizar(carro.id, divModelo, divPlaca)
+			btnAtualizar.onclick = u => atualizarCarro(carro.id, divModelo, divPlaca)
 			btnAtualizar.style.marginLeft = '5px'
 			
 			let divBotoes = document.createElement('div')
 			divBotoes.style.display = 'flex'
 			divBotoes.appendChild(btnRemover)
 			divBotoes.appendChild(btnAtualizar)
-			divUsuario.appendChild(divBotoes)
+			divCarro.appendChild(divBotoes)
 			
 			listaCarros.appendChild(divCarro)
 		}
@@ -561,4 +560,266 @@ function removerCarro(id)
 		alert('Não foi possível remover o Carro :/')
 	})
 }
+
+
+//CADASTRO "ESCRAVO/FUNCIONÁRIO"
+
+function cadastrarEscravo(){	
+
+	if(!validaNomeFunc('nomeFunc')){
+		return
+	}
+	if(!validaSenhaFunc('senhaFunc')){
+		return
+	}
+	//construcao do json que vai no body da criacao de funcionario	
+	
+	let body =
+	{
+		'NomeFunc':        document.getElementById('nomeFunc').value,
+		'SenhaFunc':      document.getElementById('senhaFunc').value,
+		'ConfSenhaFunc':      document.getElementById('confSenhaFunc').value,
+	};
+	
+	//envio da requisicao usando a FETCH API
+	
+	//configuracao e realizacao do POST no endpoint "funcionarios"
+	fetch(url + "funcionarios",
+	{
+		'method': 'POST',
+		'redirect': 'follow',
+		'headers':
+		{
+			'Content-Type': 'application/json',
+			'Accept': 'application/json'
+		},
+		'body': JSON.stringify(body)
+	})
+	//checa se requisicao deu certo
+	.then((response) =>
+	{
+		if(response.ok)
+		{
+			return response.text()
+		}
+		else
+		{
+			return response.text().then((text) =>
+			{
+				throw new Error(text)
+			})
+		}
+	})
+	//trata resposta
+	.then((output) =>
+	{
+		console.log(output)
+		alert('Cadastro efetuado! :D')
+	})
+	//trata erro
+	.catch((error) =>
+	{
+		console.log(error)
+		alert('Não foi possível efetuar o cadastro! :(')
+	})
 }
+
+function validaNomeFunc(id)
+{
+	let divNomeFunc = document.getElementById(id)
+	if(divNomeFunc.value.trim().split(' ').length >= 2)
+	{
+		divNomeFunc.classList.remove('erro-input')
+		return true
+	}
+	else
+	{
+		if(!divNomeFunc.classList.contains('erro-input'))
+		{
+			divNomeFunc.classList.add('erro-input')
+		}
+		return false
+	}
+}
+
+function validaSenhaFunc(id)
+{
+	let divSenhaFunc = document.getElementById(id)
+	
+	let senha = divSenhaFunc.value
+	
+	let temTamanho   = senha.length >= 8
+	let temMaiuscula = (/[A-Z]/).test(senha)
+	let temMinuscula = (/[a-z]/).test(senha)
+	let temNumero    = (/[0-9]/).test(senha)
+	let temEspecial  = (/[!@#$%&*?{}<>_]/).test(senha)
+	
+	if(temTamanho && temMaiuscula && temMinuscula && temNumero && temEspecial)
+	{
+		divSenhaFunc.classList.remove('erro-input')
+		confirmaSenhaFunc('confirma-senha')
+		return true
+	}
+	else
+	{
+		if(!divSenhaFunc.classList.contains('erro-input'))
+		{
+			divSenhaFunc.classList.add('erro-input')
+		}
+		confirmaSenhaFunc('confirma-senha')
+		return false
+	}
+}
+
+function confirmaSenhaFunc(id)
+{
+	let divConfirmaFunc = document.getElementById(id)
+	let divSenhaFunc = document.getElementById('senha')
+	
+	if(divConfirmaFunc.value == divSenhaFunc.value)
+	{
+		divConfirmaFunc.classList.remove('erro-input')
+		return true
+	}
+	else
+	{
+		if(!divConfirmaFunc.classList.contains('erro-input'))
+		{
+			divConfirmaFunc.classList.add('erro-input')
+		}
+		return false
+	}
+}
+
+function listarEscravo(){
+	fetch(url + 'funcionarios')
+	.then(response => response.json())
+	.then((funcionarios) =>
+	{
+		//pega div que vai conter a lista de funcionarios
+		let listaFuncionarios = document.getElementById('lista-escravo')
+		
+		//limpa div
+		while(listaFuncionarios.firstChild)
+		{
+			listaFuncionarios.removeChild(listaFuncionarios.firstChild)
+		}
+		
+		//preenche div com funcionarios recebidos do GET
+		for(let funcionario of funcionarios)
+		{
+			//cria div para as informacoes de um funcionario
+			let divFuncionario = document.createElement('div')
+			divFuncionario.setAttribute('class', 'form')
+			
+			//pega o nome do funcionario
+			let divNomeFunc = document.createElement('input')
+			divNomeFunc.placeholder = 'Nome Completo'
+			divNomeFunc.value = funcionario.nomeFunc
+			divFuncionario.appendChild(divNomeFunc)
+			
+			//cria o botao para remover o funcionario
+			let btnRemover = document.createElement('button')
+			btnRemover.innerHTML = 'Remover'
+			btnRemover.onclick = u => removerFuncionario(funcionario.id)
+			btnRemover.style.marginRight = '5px'
+			
+			//cria o botao para atualizar o funcionario
+			let btnAtualizar = document.createElement('button')
+			btnAtualizar.innerHTML = 'Atualizar'
+			btnAtualizar.onclick = u => atualizarFuncionario(funcionario.id, divNomeFunc)
+			btnAtualizar.style.marginLeft = '5px'
+			
+			//cria a div com os dois botoes
+			let divBotoes = document.createElement('div')
+			divBotoes.style.display = 'flex'
+			divBotoes.appendChild(btnRemover)
+			divBotoes.appendChild(btnAtualizar)
+			divFuncionario.appendChild(divBotoes)
+			
+			//insere a div do usuario na div com a lista de funcionario
+			listaFuncionarios.appendChild(divFuncionario)
+		}
+	})
+}
+
+function atualizarFuncionario(id, divModelo, divPlaca)
+{
+	let body =
+	{
+		'Modelo': divModelo.value,
+		'Placa': divPlaca.value
+	}
+	
+	fetch(url + "funcionarios/" + id,
+	{
+		'method': 'PUT',
+		'redirect': 'follow',
+		'headers':
+		{
+			'Content-Type': 'application/json',
+			'Accept': 'application/json'
+		},
+		'body': JSON.stringify(body)
+	})
+	.then((response) =>
+	{
+		if(response.ok)
+		{
+			return response.text()
+		}
+		else
+		{
+			return response.text().then((text) =>
+			{
+				throw new Error(text)
+			})
+		}
+	})
+	.then((output) =>
+	{
+		listarCarro()
+		console.log(output)
+		alert('Funcionário atualizado! \\o/')
+	})
+	.catch((error) =>
+	{
+		console.log(error)
+		alert('Não foi possível atualizar o Funcionário :/')
+	})
+}
+
+function removerFuncionario(id){
+	fetch(url + 'funcionarios/' + id,
+	{
+		'method': 'DELETE',
+		'redirect': 'follow'
+	})
+	.then((response) =>
+	{
+		if(response.ok)
+		{
+			return response.text()
+		}
+		else
+		{
+			return response.text().then((text) =>
+			{
+				throw new Error(text)
+			})
+		}
+	})
+	.then((output) =>
+	{
+		listarCarro()
+		console.log(output)
+		alert('Funcionario removido! >=]')
+	})
+	.catch((error) =>
+	{
+		console.log(error)
+		alert('Não foi possível remover o Funcionário :/')
+	})
+}
+
+

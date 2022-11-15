@@ -71,6 +71,20 @@ namespace CarAdmin.Migrations
 
                     b.ToTable("Usuarios");
                 });
+
+            modelBuilder.Entity("Trabalho.Vendedor", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("nomeFuncionario")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Vendedores");
+                });
 #pragma warning restore 612, 618
         }
     }
