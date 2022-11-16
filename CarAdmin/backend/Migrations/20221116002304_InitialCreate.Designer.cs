@@ -11,7 +11,7 @@ using Trabalho;
 namespace CarAdmin.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20221115161508_InitialCreate")]
+    [Migration("20221116002304_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
