@@ -148,7 +148,7 @@ namespace Trabalho
 				return database.Carros.Find(id);
 			});
 
-			app.MapPut("/carros{id}", (Database database, Carro carroAtualizado, int id) =>
+			app.MapPut("/carros/{id}", (Database database, Carro carroAtualizado, int id) =>
 			{
 				var carro = database.Carros.Find(id);
 				if(carro == null)
@@ -161,7 +161,7 @@ namespace Trabalho
 				return Results.Ok();
 			});
 
-			app.MapDelete("/carros{id}", (Database database, int id) =>
+			app.MapDelete("/carros/{id}", (Database database, int id) =>
 			{
 				var carro = database.Carros.Find(id);
 				if(carro == null)
@@ -193,7 +193,7 @@ namespace Trabalho
 				return database.Vendedores.Find(id);
 			});
 
-			app.MapPut("/vendedores{id}", (Database database, Vendedor vendedorAtualizado, int id) =>
+			app.MapPut("/vendedores/{id}", (Database database, Vendedor vendedorAtualizado, int id) =>
 			{
 				var vendedor = database.Vendedores.Find(id);
 				if(vendedor == null)
@@ -205,7 +205,7 @@ namespace Trabalho
 				return Results.Ok();
 			});
 
-			app.MapDelete("/vendedores{id}", (Database database, int id) =>
+			app.MapDelete("/vendedores/{id}", (Database database, int id) =>
 			{
 				var vendedor = database.Vendedores.Find(id);
 				if(vendedor == null)
